@@ -1,0 +1,53 @@
+package com.markoblazhevski.inventorybackend.config;
+
+import com.markoblazhevski.inventorybackend.model.Product;
+import com.markoblazhevski.inventorybackend.model.enums.Category;
+import com.markoblazhevski.inventorybackend.repository.ProductRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
+
+import java.math.BigDecimal;
+import java.util.List;
+
+@Component
+@RequiredArgsConstructor
+public class DataSeeder implements CommandLineRunner {
+
+    private final ProductRepository repository;
+
+    @Override
+    public void run(String... args) throws Exception {
+        if (repository.count() == 0) {
+            Product p1 = Product.builder()
+                    .name("Gaming Laptop")
+                    .description("High-end gaming laptop with RTX 4080")
+                    .price(new BigDecimal("1500.00"))
+                    .quantityInStock(15)
+                    .category(Category.ELECTRONICS)
+                    .imageUrl("https://example.com/laptop.jpg")
+                    .build();
+
+            Product p2 = Product.builder()
+                    .name("Coffee Maker")
+                    .description("Automatic espresso machine")
+                    .price(new BigDecimal("299.99"))
+                    .quantityInStock(50)
+                    .category(Category.HOME_APPLIANCES)
+                    .imageUrl("https://example.com/coffee.jpg")
+                    .build();
+
+            Product p3 = Product.builder()
+                    .name("Java Programming Book")
+                    .description("Complete guide to modern Java")
+                    .price(new BigDecimal("45.00"))
+                    .quantityInStock(100)
+                    .category(Category.BOOKS)
+                    .imageUrl("https://example.com/book.jpg")
+                    .build();
+
+            repository.saveAll(List.of(p1, p2, p3));
+            System.out.println("Successfully seeded 3 products into the database.");
+        }
+    }
+}
