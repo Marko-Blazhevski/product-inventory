@@ -25,7 +25,7 @@ public class DataSeeder implements CommandLineRunner {
                     .price(new BigDecimal("1500.00"))
                     .quantityInStock(15)
                     .category(Category.ELECTRONICS)
-                    .imageUrl("https://example.com/laptop.jpg")
+                    .imageUrl("/api/products/images/gaming_laptop.png")
                     .build();
 
             Product p2 = Product.builder()
@@ -34,7 +34,7 @@ public class DataSeeder implements CommandLineRunner {
                     .price(new BigDecimal("299.99"))
                     .quantityInStock(50)
                     .category(Category.HOME_APPLIANCES)
-                    .imageUrl("https://example.com/coffee.jpg")
+                    .imageUrl("/api/products/images/coffee-maker.png")
                     .build();
 
             Product p3 = Product.builder()
@@ -43,7 +43,7 @@ public class DataSeeder implements CommandLineRunner {
                     .price(new BigDecimal("45.00"))
                     .quantityInStock(100)
                     .category(Category.BOOKS)
-                    .imageUrl("https://example.com/book.jpg")
+                    .imageUrl("/api/products/images/java_programming_book.png")
                     .build();
 
             repository.saveAll(List.of(p1, p2, p3));

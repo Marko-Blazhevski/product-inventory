@@ -1,0 +1,28 @@
+.custom-tooltip-container {
+  position: relative;
+  cursor: help;
+}
+
+.custom-tooltip-text {
+  visibility: hidden;
+  width: 200px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%; /* Position above the text */
+  left: 50%;
+  margin-left: -100px;
+  opacity: 0;
+  transition: opacity 0.2s; /* This makes it feel much faster */
+  font-weight: normal;
+  font-size: 0.85rem;
+}
+
+.custom-tooltip-container:hover .custom-tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}

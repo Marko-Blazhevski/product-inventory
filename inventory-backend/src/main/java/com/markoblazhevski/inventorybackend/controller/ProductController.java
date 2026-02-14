@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,9 +34,12 @@ public class ProductController {
         return productService.getProductById(id);
     }
 
-    @PostMapping
-    public ResponseEntity<ProductDto> createProduct(@Valid @RequestBody ProductDto productDto) {
-        return new ResponseEntity<>(productService.createProduct(productDto), HttpStatus.CREATED);
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<ProductDto> createProduct(
+            @Valid @RequestPart("product") ProductDto productDto,
+            @RequestPart(value = "file", required = false) MultipartFile file
+    ) {
+        return new ResponseEntity<>(productService.createProduct(productDto, file), HttpStatus.CREATED);
     }
 
     @PostMapping("/{id}/image")
@@ -43,9 +47,13 @@ public class ProductController {
         return productService.uploadProductImage(id, file);
     }
 
-    @PutMapping("/{id}")
-    public ProductDto updateProduct(@PathVariable Long id, @Valid @RequestBody ProductDto productDto) {
-        return productService.updateProduct(id, productDto);
+    @PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ProductDto updateProduct(
+            @PathVariable Long id,
+            @Valid @RequestPart("product") ProductDto productDto, // The JSON part
+            @RequestPart(value = "file", required = false) MultipartFile file // Optional image
+    ) {
+        return productService.updateProduct(id, productDto, file);
     }
 
     @DeleteMapping("/{id}")

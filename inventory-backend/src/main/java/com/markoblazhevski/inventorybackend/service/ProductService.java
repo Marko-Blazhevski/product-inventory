@@ -67,13 +67,13 @@ public class ProductService {
         return new ProductDto(p);
     }
 
-    public ProductDto createProduct(ProductDto dto) {
+    public ProductDto createProduct(ProductDto dto, MultipartFile file) {
         Product product = mapToEntity(dto);
-
-        return new ProductDto(productRepository.save(product));
+        product = productRepository.save(product);
+        return uploadProductImage(product.getId(), file);
     }
 
-    public ProductDto updateProduct(Long id, ProductDto details) {
+    public ProductDto updateProduct(Long id, ProductDto details, MultipartFile file) {
         Product existingProduct = productRepository.findById(id)
                 .orElseThrow(() -> new ProductNotFoundException(id));
 
@@ -86,6 +86,10 @@ public class ProductService {
 
         existingProduct = productRepository.save(existingProduct);
 
+        if (file != null && !file.isEmpty()) {
+            return uploadProductImage(existingProduct.getId(), file);
+        }
+
         return new ProductDto(existingProduct);
     }
 
@@ -97,12 +101,10 @@ public class ProductService {
     }
 
     public ProductDto uploadProductImage(Long id, MultipartFile file) {
-        // 1. Find the product first to ensure it exists before doing file work
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ProductNotFoundException(id));
 
         try {
-            // 2. Handle the file storage
             String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
             Path filePath = Paths.get(UPLOAD_DIR).resolve(fileName);
 
@@ -112,11 +114,9 @@ public class ProductService {
 
             Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
-            // 3. Update the entity with the new URL
             String imageUrl = "/api/products/images/" + fileName;
             product.setImageUrl(imageUrl);
 
-            // 4. Save and return the DTO
             return new ProductDto(productRepository.save(product));
 
         } catch (IOException e) {

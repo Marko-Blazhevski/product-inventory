@@ -1,0 +1,32 @@
+<div class="container mt-5">
+  @if (isLoading()) {
+    <div class="text-center py-5">
+      <div class="spinner-border text-primary" role="status"></div>
+      <p class="mt-2 text-muted">Loading product details...</p>
+    </div>
+  } @else if (product(); as p) {
+    <div class="row">
+      <div class="col-md-5">
+        <img [src]="imageError ? 'assets/no-image.png' : 'http://localhost:8080' + p.imageUrl"
+             (error)="imageError = true"
+             width="400"
+             height="635"
+             class="img-fluid rounded shadow"
+             style="object-fit: cover;"
+             alt="Product">
+      </div>
+      <div class="col-md-7">
+        <h1 class="display-4">{{ p.name }}</h1>
+        <span class="badge bg-primary mb-3">{{ p.category }}</span>
+        <h2 class="text-success mb-4">{{ p.price }}</h2>
+        <p class="lead text-muted">{{ p.description }}</p>
+        <hr>
+        <p><strong>Stock Level:</strong> {{ p.quantityInStock }} units</p>
+        <div class="mt-4">
+          <button class="btn btn-warning me-2" [routerLink]="['/products/edit', p.id]">Edit Product</button>
+          <button class="btn btn-outline-secondary" routerLink="/">Back to List</button>
+        </div>
+      </div>
+    </div>
+  }
+</div>
