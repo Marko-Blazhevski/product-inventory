@@ -21,8 +21,8 @@
         <p class="lead text-muted">{{ p.description }}</p>
         <hr>
         <p><strong>Stock Level:</strong> {{ p.quantityInStock }} units</p>
-        <div class="mt-4">
-          <button class="btn btn-warning me-2" [routerLink]="['/products/edit', p.id]">Edit Product</button>
+        <div class="mt-4 d-flex flex-column flex-sm-row gap-1">
+          <button class="btn btn-warning" [routerLink]="['/products/edit', p.id]">Edit Product</button>
           <button class="btn btn-outline-secondary" routerLink="/">Back to List</button>
         </div>
       </div>

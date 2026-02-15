@@ -70,17 +70,20 @@
                   </span>
                 </div>
               </td>
-              <td class="text-center">
-                <button (click)="prepareToDelete(p.id)"
-                        class="btn btn-outline-danger btn-sm"
-                        data-bs-toggle="modal"
-                        data-bs-target="#deleteConfirmModal">
-                  <i class="bi bi-trash"></i> Delete
-                </button>
-                <button (click)="viewDetails(p.id)"
-                        class="btn btn-outline-info btn-sm ms-2">
-                  <i class="bi bi-info"></i> Details
-                </button>
+              <td class="text-center align-middle">
+                <div class="d-flex flex-column flex-lg-row justify-content-center gap-1">
+                  <button (click)="prepareToDelete(p.id)"
+                          class="btn btn-outline-danger btn-sm text-nowrap"
+                          data-bs-toggle="modal"
+                          data-bs-target="#deleteConfirmModal">
+                    <i class="bi bi-trash"></i> Delete
+                  </button>
+
+                  <button (click)="viewDetails(p.id)"
+                          class="btn btn-outline-info btn-sm text-nowrap">
+                    <i class="bi bi-info-circle"></i> Details
+                  </button>
+                </div>
               </td>
             </tr>
           } @empty {

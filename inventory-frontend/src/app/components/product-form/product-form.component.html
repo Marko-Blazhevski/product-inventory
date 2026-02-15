@@ -50,7 +50,7 @@
         </div>
 
         <div class="d-grid gap-2">
-          <button type="submit" class="btn btn-primary btn-lg" [disabled]="productForm.invalid">
+          <button type="submit" class="btn btn-primary btn-lg" [disabled]="productForm.invalid || isSubmitting">
             {{ isEditMode() ? 'Save Changes' : 'Create Product' }}
           </button>
         </div>

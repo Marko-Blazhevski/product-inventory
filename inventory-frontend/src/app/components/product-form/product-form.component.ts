@@ -22,6 +22,7 @@ export class ProductFormComponent implements OnInit {
   selectedFile: File | null = null;
   categories = Object.values(Category);
   message = signal<{type: string, text: string} | null>(null);
+  isSubmitting = false;
 
   productForm = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(3)]],
@@ -41,6 +42,13 @@ export class ProductFormComponent implements OnInit {
     if (idParam) {
       this.productId = +idParam;
       this.isEditMode.set(true);
+
+      const fileControl = this.productForm.get('selectedFile');
+      if (fileControl) {
+        fileControl.clearValidators();
+        fileControl.updateValueAndValidity();
+      }
+
       this.loadProductForEdit(this.productId);
     }
   }
@@ -64,6 +72,8 @@ export class ProductFormComponent implements OnInit {
   onSubmit() {
     if (this.productForm.invalid) return;
 
+    this.isSubmitting = true;
+
     const formData = new FormData();
     const productData = new Blob([JSON.stringify(this.productForm.value)], { type: 'application/json' });
     formData.append('product', productData);
@@ -79,9 +89,12 @@ export class ProductFormComponent implements OnInit {
     request.subscribe({
       next: () => {
         this.message.set({ type: 'success', text: `Product ${this.isEditMode() ? 'updated' : 'created'} successfully!` });
-        this.router.navigate(['/']);
+        setTimeout(() => this.router.navigate(['/']), 1000);
       },
-      error: () => this.message.set({ type: 'danger', text: 'An error occurred while saving.' })
+      error: () => {
+        this.message.set({ type: 'danger', text: 'An error occurred while saving.' });
+        this.isSubmitting = false;
+      }
     });
   }
 }

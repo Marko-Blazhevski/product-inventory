@@ -50,8 +50,8 @@ public class ProductController {
     @PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ProductDto updateProduct(
             @PathVariable Long id,
-            @Valid @RequestPart("product") ProductDto productDto, // The JSON part
-            @RequestPart(value = "file", required = false) MultipartFile file // Optional image
+            @Valid @RequestPart("product") ProductDto productDto,
+            @RequestPart(value = "file", required = false) MultipartFile file
     ) {
         return productService.updateProduct(id, productDto, file);
     }
