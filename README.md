@@ -26,7 +26,7 @@ We use Docker to ensure a consistent database environment without requiring a lo
 docker-compose up -d
 ```
 
-## 1. Database (Without Docker)
+### 1. Database (Without Docker)
 We can also start this application without docker by connecting to the local PostgreSQL on your machine.
 In the properties file you will need to replace the first 3 lines with the commented lines while also replacing your credentials.
 
