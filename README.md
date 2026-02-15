@@ -37,7 +37,6 @@ nano inventory-backend/src/main/resources/application.properties
 
 ### 2. Backend (Spring Boot)
 The API layer handles business logic, and multipart file uploads for product images.
-If you get a "Permission Denied" error on Mac/Linux, run chmod +x mvnw once to make the wrapper executable.
 
 ```bash
 # 1. Navigate to the backend directory
@@ -45,6 +44,9 @@ cd inventory-backend
 
 # 2. Start the service using the Maven Wrapper
 ./mvnw spring-boot:run
+
+# 3. Note: If you get a "Permission Denied" error on Mac/Linux, run this command once to make the wrapper executable.
+chmod +x mvnw
 ```
 
 ### 3. Frontend (Angular)
