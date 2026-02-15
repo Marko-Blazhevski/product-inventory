@@ -9,7 +9,7 @@ A professional full-stack application for real-time inventory management, built 
 Ensure your environment meets these requirements before starting:
 * **Docker & Docker Compose**: For containerized database management.
 * **Java 17+**: Required to run the Spring Boot backend.
-* **Node.js (v20+)**: Required for Angular development.
+* **Node.js (v24+)**: Required for Angular development.
 * **Angular CLI**: Install via `npm install -g @angular/cli`.
 
 ---
