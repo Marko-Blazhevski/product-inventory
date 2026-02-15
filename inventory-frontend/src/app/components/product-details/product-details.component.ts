@@ -2,7 +2,6 @@ import { Component, OnInit, signal, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../models/product.model';
-import {NgOptimizedImage} from '@angular/common';
 
 @Component({
   selector: 'app-product-details',
@@ -17,10 +16,8 @@ export class ProductDetailsComponent implements OnInit {
 
   product = signal<Product | null>(null);
   isLoading = signal(true);
-  imageError = false;
 
   ngOnInit() {
-    this.imageError = false;
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.productService.getProductById(id).subscribe({
       next: (data) => {

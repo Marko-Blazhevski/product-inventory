@@ -31,7 +31,9 @@ export class ProductFormComponent implements OnInit {
     price: [1, [Validators.required, Validators.min(0.01)]],
     quantityInStock: [0, [Validators.required, Validators.min(0)]],
 
-    category: [Category.ELECTRONICS, Validators.required]
+    category: [Category.ELECTRONICS, Validators.required],
+
+    selectedFile: [null, Validators.required]
   });
 
   ngOnInit() {
@@ -51,7 +53,12 @@ export class ProductFormComponent implements OnInit {
   }
 
   onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0];
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedFile = file;
+      this.productForm.patchValue({ selectedFile: file });
+      this.productForm.get('selectedFile')?.updateValueAndValidity();
+    }
   }
 
   onSubmit() {

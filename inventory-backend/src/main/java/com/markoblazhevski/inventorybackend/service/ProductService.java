@@ -25,7 +25,7 @@ import java.nio.file.StandardCopyOption;
 public class ProductService {
 
     private final ProductRepository productRepository;
-    private final String UPLOAD_DIR = "uploads/";
+    private final String UPLOAD_DIR = "./uploads/";
 
     public Page<ProductDto> getAllProducts(String name, String categoryStr, Pageable pageable) {
         boolean hasName = StringUtils.hasText(name);
